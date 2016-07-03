@@ -1,0 +1,66 @@
+/* Styles go here */
+
+body {
+  font-family: Verdana, sans-serif;
+  font-size: 14px;
+  margin: 0;
+}
+
+#app {
+  padding: 0 10px;
+  height: 100vh;
+  transition: box-shadow 0.5s;
+}
+
+#app.hit {
+  box-shadow: inset 0 0 30px 0px red;
+}
+
+#app.heal {
+  box-shadow: inset 0 0 30px 0px red;
+}
+
+.hpmax {
+  width: 100%;
+  height: 30px;
+  border: solid 1px grey;
+  border-radius: 2px;
+}
+
+.hpcurrent {
+  background-color: red;
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.7s;
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.option {
+  flex: 1 1 33%;
+  display: flex;
+  flex-direction: column;
+  border: solid 1px grey;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.option button {
+  width: 100%;
+  height: 40px;
+  margin-top: 4px;
+  font-size: 2em;
+  border-radius: 3px;
+}
+
+.option input[type="number"] {
+   width: 3em;
+   margin: 0 auto;
+   height: 30px;
+   font-size: 28px;
+}

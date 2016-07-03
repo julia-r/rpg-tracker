@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <script data-require="vue.js@*" data-semver="1.0.17" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.17/vue.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    
+  </head>
+
+  <body>
+    <div id="app">
+      <h1>HP Tracker</h1>
+      <p>How tough are you? <input v-model="maxHP" type="number"> HP</p>
+      <div class="hpmax">
+        <div class="hpcurrent" style="width:{{HPbarWidth}}%"></div>
+      </div>{{currentHP}} / {{maxHP}}
+      
+      <div class="options">
+      
+        <div class="option" >
+          I got hit! 
+          <input type="number" v-model="currentHit">
+          <button v-on:click="hit(currentHit)">-{{currentHit}}</button>
+        </div>
+        <div class="option">
+          I got healed
+          <input type="number" v-model="currentHeal"> 
+          <button v-on:click="heal(currentHeal)">+{{currentHeal}}</button>
+        </div>
+        <div class="option">
+          Minor Potion (1W8+1)
+          <button v-on:click="drinkPotion"> Drink</button>
+        </div>
+        
+        
+      </div>
+    
+    </div>
+    <script src="script.js"></script>
+  </body>
+
+</html>
