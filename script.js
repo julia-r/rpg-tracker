@@ -16,6 +16,9 @@ new Vue({
     currentHP: storage.fetch("currentHP"),
     currentHeal: "",
     currentHit: "",
+    coinsCopper: storage.fetch("coinsCopper"),
+    coinsSilver: storage.fetch("coinsSilver"),
+    coinsGold: storage.fetch("coinsGold"),
     log: [],
   },
   computed: {
@@ -35,7 +38,25 @@ new Vue({
 			  storage.save("currentHP", currentHP);
 			},
 				deep: true
-		}
+		},
+        coinsCopper: {
+			handler: function (coinsCopper) {
+			  storage.save("coinsCopper", currentHP);
+			},
+				deep: true
+		},
+        coinsSilver: {
+             handler: function (coinsSilver) {
+                 storage.save("coinsSilver", currentHP);
+             },
+             deep: true
+        },
+        coinsGold: {
+            handler: function (coinsGold) {
+                storage.save("coinsGold", currentHP);
+            },
+            deep: true
+        }
 	},
   methods: {
     getRandomInt: function(max) {
@@ -70,7 +91,19 @@ new Vue({
         }
         this.currentHit= "";  
       }
-    }
+    },
+
+
+    adjustGold: function (adjustCoinsGold) {
+          if(adjustCoinsGold){
+              this.coinsGold = parseInt(this.coinsGold) + parseInt(adjustCoinsGold);
+
+              if(this.currentHP < 0){
+                  this.currentHP = 0;
+              }
+              this.adjustCoinsGold = 0;
+          }
+      }
   },
   config:{
     debug: true

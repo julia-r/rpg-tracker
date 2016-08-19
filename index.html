@@ -9,32 +9,67 @@
 
   <body>
     <div id="app">
-      <h1>HP Tracker</h1>
-      <p>How tough are you? <input v-model="maxHP" type="number"> HP</p>
-      <div class="hpmax">
-        <div class="hpcurrent" style="width:{{HPbarWidth}}%"></div>
-      </div>{{currentHP}} / {{maxHP}}
-      
-      <div class="options">
-      
-        <div class="option" >
-          I got hit! 
-          <input type="number" v-model="currentHit">
-          <button v-on:click="hit(currentHit)">-{{currentHit}}</button>
-        </div>
-        <div class="option">
-          I got healed
-          <input type="number" v-model="currentHeal"> 
-          <button v-on:click="heal(currentHeal)">+{{currentHeal}}</button>
-        </div>
-        <div class="option">
-          Minor Potion (1W8+1)
-          <button v-on:click="drinkPotion"> Drink</button>
-        </div>
-        
-        
-      </div>
-    
+        <section class="hp">
+            <h1>HP Tracker</h1>
+            <p>How tough are you? <input v-model="maxHP" type="number"> HP</p>
+            <div class="hpmax">
+                <div class="hpcurrent" style="width:{{HPbarWidth}}%"></div>
+            </div>{{currentHP}} / {{maxHP}}
+
+            <div class="options">
+
+                <div class="option" >
+                    I got hit!
+                    <input type="number" v-model="currentHit">
+                    <button v-on:click="hit(currentHit)">-{{currentHit}}</button>
+                </div>
+
+                <div class="option">
+                    I got healed
+                    <input type="number" v-model="currentHeal">
+                    <button v-on:click="heal(currentHeal)">+{{currentHeal}}</button>
+                </div>
+
+                <div class="option">
+                    Minor Potion (1W8+1)
+                    <button v-on:click="drinkPotion"> Drink</button>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="money">
+            <h1>Money Tracker</h1>
+
+            <p class="currentMoney">
+                <span>{{coinsGold}}</span> Gold |
+                <span>{{coinsSilver}}</span> Silver |
+                <span>{{coinsCopper}}</span> Copper
+            </p>
+
+            <div class="options">
+
+                <div class="option" >
+                    Gold
+                    <input type="number" v-model="adjustCoinsGold">
+                    <button v-on:click="adjustGold(adjustCoinsGold)">+</button>
+                </div>
+
+                <div class="option">
+                    Silver
+                    <input type="number" v-model="currentHeal">
+                    <button v-on:click="heal(currentHeal)">+</button>
+                </div>
+
+                <div class="option">
+                    Copper
+                    <input type="number" v-model="">
+                    <button v-on:click="drinkPotion">+</button>
+                </div>
+
+            </div>
+        </section>
+
     </div>
     <script src="script.js"></script>
   </body>
