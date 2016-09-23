@@ -26,6 +26,8 @@ new Vue({
       return (100/this.maxHP * this.currentHP);
     }
   },
+
+  /* This is for putting current values into local storage */
   watch: {
 		maxHP: {
 			handler: function (maxHP) {
@@ -41,19 +43,19 @@ new Vue({
 		},
         coinsCopper: {
 			handler: function (coinsCopper) {
-			  storage.save("coinsCopper", currentHP);
+			  storage.save("coinsCopper", coinsCopper);
 			},
 				deep: true
 		},
         coinsSilver: {
              handler: function (coinsSilver) {
-                 storage.save("coinsSilver", currentHP);
+                 storage.save("coinsSilver", coinsSilver);
              },
              deep: true
         },
         coinsGold: {
             handler: function (coinsGold) {
-                storage.save("coinsGold", currentHP);
+                storage.save("coinsGold", coinsGold);
             },
             deep: true
         }
@@ -66,48 +68,68 @@ new Vue({
     drinkPotion: function () {
       var potion = this.getRandomInt(8) +1;
       this.currentHP = this.currentHP + potion;
-      
+
       if(this.currentHP > this.maxHP){
         this.currentHP = this.maxHP;
       }
     },
     heal: function (healHP) {
-      if(healHP){ 
+      if(healHP){
         console.log( this.currentHP)
         this.currentHP = parseInt(this.currentHP) + parseInt(healHP);
-        
+
         if(this.currentHP > this.maxHP){
           this.currentHP = this.maxHP;
         }
-        this.currentHeal= ""; 
+        this.currentHeal= "";
       }
     },
     hit: function (hitHP) {
-      if(hitHP){ 
+      if(hitHP){
         this.currentHP = parseInt(this.currentHP) - parseInt(hitHP);
-      
+
         if(this.currentHP < 0){
           this.currentHP = 0;
         }
-        this.currentHit= "";  
+        this.currentHit= "";
       }
     },
 
+    /* @TODO: can those two be refactored into one function? */
+    addMoney: function (goldAmountPlus, silverAmountPlus, copperAmountPlus) {
+        if(goldAmountPlus){
+            this.coinsGold = parseInt(this.coinsGold) + parseInt(goldAmountPlus);
+            this.goldAmountPlus = "";
+        }
 
-    adjustGold: function (adjustCoinsGold) {
-          if(adjustCoinsGold){
-              this.coinsGold = parseInt(this.coinsGold) + parseInt(adjustCoinsGold);
+        if(silverAmountPlus){
+            this.coinsSilver = parseInt(this.coinsSilver) + parseInt(silverAmountPlus);
+            this.silverAmountPlus = "";
+        }
 
-              if(this.currentHP < 0){
-                  this.currentHP = 0;
-              }
-              this.adjustCoinsGold = 0;
-          }
+        if(copperAmountPlus){
+            this.coinsCopper = parseInt(this.coinsCopper) + parseInt(copperAmountPlus);
+            this.copperAmountPlus = "";
+        }
+    },
+    removeMoney: function (goldAmountMinus, silverAmountMinus, copperAmountMinus) {
+        if(goldAmountMinus){
+            this.coinsGold = parseInt(this.coinsGold) - parseInt(goldAmountMinus);
+            this.goldAmountMinus = "";
+        }
+
+        if(silverAmountMinus){
+            this.coinsSilver = parseInt(this.coinsSilver) - parseInt(silverAmountMinus);
+            this.silverAmountMinus = "";
+        }
+
+        if(copperAmountMinus){
+            this.coinsCopper = parseInt(this.coinsCopper) - parseInt(copperAmountMinus);
+            this.copperAmountMinus = "";
+        }
       }
   },
   config:{
     debug: true
   }
-})
-
-
+});
