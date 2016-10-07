@@ -19,7 +19,7 @@ new Vue({
     coinsCopper: storage.fetch("coinsCopper"),
     coinsSilver: storage.fetch("coinsSilver"),
     coinsGold: storage.fetch("coinsGold"),
-		coinsPlatinum: storage.fetch("coinsPlatinum"),
+	coinsPlatinum: storage.fetch("coinsPlatinum"),
     log: [],
   },
   computed: {
@@ -60,7 +60,7 @@ new Vue({
             },
             deep: true
         },
-				coinsPlatinum: {
+		coinsPlatinum: {
             handler: function (coinsPlatinum) {
                 storage.save("coinsPlatinum", coinsPlatinum);
             },
@@ -104,12 +104,12 @@ new Vue({
 
     /* @TODO: can those two be refactored into one function? */
     addMoney: function (platinumAmountPlus, goldAmountPlus, silverAmountPlus, copperAmountPlus) {
-				if(platinumAmountPlus){
-						this.coinsPlatinum = parseInt(this.coinsPlatinum) + parseInt(platinumAmountPlus);
-						this.platinumAmountPlus = "";
-				}
+		if(platinumAmountPlus){
+				this.coinsPlatinum = parseInt(this.coinsPlatinum) + parseInt(platinumAmountPlus);
+				this.platinumAmountPlus = "";
+		}
 
-				if(goldAmountPlus){
+		if(goldAmountPlus){
             this.coinsGold = parseInt(this.coinsGold) + parseInt(goldAmountPlus);
             this.goldAmountPlus = "";
         }
@@ -125,12 +125,12 @@ new Vue({
         }
     },
     removeMoney: function (platinumAmountMinus, goldAmountMinus, silverAmountMinus, copperAmountMinus) {
-				if(platinumAmountMinus){
-						this.coinsPlatinum = parseInt(this.coinsPlatinum) - parseInt(platinumAmountMinus);
-						this.platinumAmountMinus = "";
-				}
+		if(platinumAmountMinus){
+			this.coinsPlatinum = parseInt(this.coinsPlatinum) - parseInt(platinumAmountMinus);
+			this.platinumAmountMinus = "";
+		}
 
-				if(goldAmountMinus){
+		if(goldAmountMinus){
             this.coinsGold = parseInt(this.coinsGold) - parseInt(goldAmountMinus);
             this.goldAmountMinus = "";
         }
@@ -144,8 +144,26 @@ new Vue({
             this.coinsCopper = parseInt(this.coinsCopper) - parseInt(copperAmountMinus);
             this.copperAmountMinus = "";
         }
+    },
+  convertMoney: function () {
+      var converted
+      if(this.coinsCopper >= 10){
+          converted = Math.floor(this.coinsCopper / 10);
+          this.coinsCopper = this.coinsCopper - (converted * 10);
+          this.coinsSilver += converted;
       }
-  },
+      if(this.coinsSilver >= 10){
+          converted = Math.floor(this.coinsSilver / 10);
+          this.coinsSilver = this.coinsSilver - (converted * 10);
+          this.coinsGold += converted;
+      }
+      if(this.coinsGold >= 10){
+          converted = Math.floor(this.coinsGold / 10);
+          this.coinsGold = this.coinsGold - (converted * 10);
+          this.coinsPlatinum += converted;
+      }
+    }
+},
   config:{
     debug: true
   }
