@@ -8,3 +8,5 @@ This is not supposed to be a character editor, but rather a tool for all the stu
 * How much money?
 
 This should work for fantasy settings, but should not be depending on system specific rules.
+
+Preview: http://htmlpreview.github.io/?https://github.com/julia-r/rpg-tracker/master/index.html
