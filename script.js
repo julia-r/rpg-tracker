@@ -19,6 +19,7 @@ new Vue({
     coinsCopper: storage.fetch("coinsCopper"),
     coinsSilver: storage.fetch("coinsSilver"),
     coinsGold: storage.fetch("coinsGold"),
+		coinsPlatinum: storage.fetch("coinsPlatinum"),
     log: [],
   },
   computed: {
@@ -56,6 +57,12 @@ new Vue({
         coinsGold: {
             handler: function (coinsGold) {
                 storage.save("coinsGold", coinsGold);
+            },
+            deep: true
+        },
+				coinsPlatinum: {
+            handler: function (coinsPlatinum) {
+                storage.save("coinsPlatinum", coinsPlatinum);
             },
             deep: true
         }
@@ -96,8 +103,13 @@ new Vue({
     },
 
     /* @TODO: can those two be refactored into one function? */
-    addMoney: function (goldAmountPlus, silverAmountPlus, copperAmountPlus) {
-        if(goldAmountPlus){
+    addMoney: function (platinumAmountPlus, goldAmountPlus, silverAmountPlus, copperAmountPlus) {
+				if(platinumAmountPlus){
+						this.coinsPlatinum = parseInt(this.coinsPlatinum) + parseInt(platinumAmountPlus);
+						this.platinumAmountPlus = "";
+				}
+
+				if(goldAmountPlus){
             this.coinsGold = parseInt(this.coinsGold) + parseInt(goldAmountPlus);
             this.goldAmountPlus = "";
         }
@@ -112,8 +124,13 @@ new Vue({
             this.copperAmountPlus = "";
         }
     },
-    removeMoney: function (goldAmountMinus, silverAmountMinus, copperAmountMinus) {
-        if(goldAmountMinus){
+    removeMoney: function (platinumAmountMinus, goldAmountMinus, silverAmountMinus, copperAmountMinus) {
+				if(platinumAmountMinus){
+						this.coinsPlatinum = parseInt(this.coinsPlatinum) - parseInt(platinumAmountMinus);
+						this.platinumAmountMinus = "";
+				}
+
+				if(goldAmountMinus){
             this.coinsGold = parseInt(this.coinsGold) - parseInt(goldAmountMinus);
             this.goldAmountMinus = "";
         }

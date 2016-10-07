@@ -4,6 +4,7 @@
   <head>
       <title>RPG Tracker</title>
       <script data-require="vue.js@*" data-semver="1.0.17" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.17/vue.js"></script>
+      <meta charset='utf-8'>
       <link rel="stylesheet" href="style.css" />
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, minimum-scale=0.5">
   </head>
@@ -43,6 +44,7 @@
             <h1>Money Tracker</h1>
 
             <p class="currentMoney">
+                <span>{{coinsPlatinum}}</span> Platinum |
                 <span>{{coinsGold}}</span> Gold |
                 <span>{{coinsSilver}}</span> Silver |
                 <span>{{coinsCopper}}</span> Copper
@@ -52,6 +54,10 @@
 
                 <div class="option" >
                     <div class="row">
+                        <div>
+                            Platinum
+                           <input type="number" v-model="platinumAmountPlus">
+                        </div>
                         <div>
                             Gold
                             <input type="number" v-model="goldAmountPlus">
@@ -65,11 +71,15 @@
                             <input type="number" v-model="copperAmountPlus">
                         </div>
                     </div>
-                    <button v-on:click="addMoney(goldAmountPlus, silverAmountPlus, copperAmountPlus)">+</button>
+                    <button v-on:click="addMoney(platinumAmountPlus, goldAmountPlus, silverAmountPlus, copperAmountPlus)">+</button>
                 </div>
 
                 <div class="option">
                     <div class="row">
+                        <div>
+                           Platinum
+                           <input type="number" v-model="platinumAmountMinus">
+                        </div>
                         <div>
                             Gold
                             <input type="number" v-model="goldAmountMinus">
@@ -83,7 +93,7 @@
                             <input type="number" v-model="copperAmountMinus">
                         </div>
                     </div>
-                    <button v-on:click="removeMoney(goldAmountMinus, silverAmountMinus, copperAmountMinus)">-</button>
+                    <button v-on:click="removeMoney(platinumAmountMinus, goldAmountMinus, silverAmountMinus, copperAmountMinus)">-</button>
                 </div>
 
             </div>
