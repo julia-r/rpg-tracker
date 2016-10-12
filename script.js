@@ -19,7 +19,15 @@ new Vue({
     coinsCopper: storage.fetch("coinsCopper"),
     coinsSilver: storage.fetch("coinsSilver"),
     coinsGold: storage.fetch("coinsGold"),
-		coinsPlatinum: storage.fetch("coinsPlatinum"),
+	coinsPlatinum: storage.fetch("coinsPlatinum"),
+	copperAmountPlus: "",
+	silverAmountPlus: "",
+	goldAmountPlus: "",
+	platinumAmountPlus: "",
+	copperAmountMinus: "",
+	silverAmountMinus: "",
+	goldAmountMinus: "",
+	platinumAmountMinus: "",
     log: [],
   },
   computed: {
@@ -82,7 +90,6 @@ new Vue({
     },
     heal: function (healHP) {
       if(healHP){
-        console.log( this.currentHP)
         this.currentHP = parseInt(this.currentHP) + parseInt(healHP);
 
         if(this.currentHP > this.maxHP){
@@ -104,12 +111,12 @@ new Vue({
 
     /* @TODO: can those two be refactored into one function? */
     addMoney: function (platinumAmountPlus, goldAmountPlus, silverAmountPlus, copperAmountPlus) {
-				if(platinumAmountPlus){
-						this.coinsPlatinum = parseInt(this.coinsPlatinum) + parseInt(platinumAmountPlus);
-						this.platinumAmountPlus = "";
-				}
+		if(platinumAmountPlus){
+				this.coinsPlatinum = parseInt(this.coinsPlatinum) + parseInt(platinumAmountPlus);
+				this.platinumAmountPlus = "";
+		}
 
-				if(goldAmountPlus){
+		if(goldAmountPlus){
             this.coinsGold = parseInt(this.coinsGold) + parseInt(goldAmountPlus);
             this.goldAmountPlus = "";
         }
@@ -125,12 +132,12 @@ new Vue({
         }
     },
     removeMoney: function (platinumAmountMinus, goldAmountMinus, silverAmountMinus, copperAmountMinus) {
-				if(platinumAmountMinus){
-						this.coinsPlatinum = parseInt(this.coinsPlatinum) - parseInt(platinumAmountMinus);
-						this.platinumAmountMinus = "";
-				}
+		if(platinumAmountMinus){
+				this.coinsPlatinum = parseInt(this.coinsPlatinum) - parseInt(platinumAmountMinus);
+				this.platinumAmountMinus = "";
+		}
 
-				if(goldAmountMinus){
+		if(goldAmountMinus){
             this.coinsGold = parseInt(this.coinsGold) - parseInt(goldAmountMinus);
             this.goldAmountMinus = "";
         }

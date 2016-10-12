@@ -15,7 +15,7 @@
             <h1>HP Tracker</h1>
             <p>How tough are you? <input v-model="maxHP" type="number"> HP</p>
             <div class="hpmax">
-                <div class="hpcurrent" style="width:{{HPbarWidth}}%"></div>
+                <div class="hpcurrent" v-bind:style="{width: HPbarWidth + '%'}"></div>
             </div>{{currentHP}} / {{maxHP}}
 
             <div class="options">
