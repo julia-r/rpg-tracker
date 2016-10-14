@@ -41,38 +41,32 @@ new Vue({
 		maxHP: {
 			handler: function (maxHP) {
 			  storage.save("maxHP", maxHP);
-			},
-				deep: true
+			}
 		},
 		currentHP: {
 			handler: function (currentHP) {
 			  storage.save("currentHP", currentHP);
-			},
-				deep: true
+			}
 		},
         coinsCopper: {
 			handler: function (coinsCopper) {
 			  storage.save("coinsCopper", coinsCopper);
-			},
-				deep: true
+			}
 		},
         coinsSilver: {
              handler: function (coinsSilver) {
                  storage.save("coinsSilver", coinsSilver);
-             },
-             deep: true
+             }
         },
         coinsGold: {
             handler: function (coinsGold) {
                 storage.save("coinsGold", coinsGold);
-            },
-            deep: true
+            }
         },
 				coinsPlatinum: {
             handler: function (coinsPlatinum) {
                 storage.save("coinsPlatinum", coinsPlatinum);
-            },
-            deep: true
+            }
         }
 	},
   methods: {
