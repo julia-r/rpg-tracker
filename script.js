@@ -28,6 +28,11 @@ new Vue({
         silverAmountMinus: "",
         goldAmountMinus: "",
         platinumAmountMinus: "",
+        show: {
+            options: true,
+            hpTracker: false,
+            classicMoneyTracker: false
+        },
         log: [],
     },
     computed: {
@@ -75,6 +80,12 @@ new Vue({
         }
     },
     methods: {
+        hideOptions: function (){
+            this.show.options = false;
+        },
+        showOptions: function (){
+            this.show.options = true;
+        },
         getRandomInt: function (max) {
             var min = 1;
             return Math.floor(Math.random() * (max - min)) + min;

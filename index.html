@@ -12,100 +12,137 @@
 
 <body>
 <div id="app">
-    <section class="hp">
-        <h1>HP Tracker</h1>
-        <p>How tough are you? <input v-model="maxHP" type="number"> HP</p>
-        <div class="hpmax">
-            <div class="hpcurrent" v-bind:style="{width: HPbarWidth + '%'}"></div>
-        </div>
-        {{currentHP}} / {{maxHP}}
 
-        <div class="options">
+    <template v-if="show.options">
+        <h1>Hey there!</h1>
+        <p>This is a little tool to help you keep track of your RPG Character Stats.</p>
+        <h2>What do you need?</h2>
+        <ul>
+            <li>
+                <strong>
+                    <input type="checkbox" v-model="show.hpTracker" id="showhpTracker">
+                    <label for="showhpTracker">Hit Points Tracker</label>
+                </strong>
+                <p>How many Hitpoints in total? <input v-model="maxHP" type="number">&nbsp;HP</p>
+                <p>How many Hitpoints at the moment? <input v-model="currentHP" type="number">&nbsp;HP</p>
+            </li>
+            <li>
+                <strong>
+                    <input type="checkbox" v-model="show.classicMoneyTracker" id="showClassicMoneyTracker">
+                    <label for="showClassicMoneyTracker">Classic Money Tracker (Copper, Silver, Gold, Platinum)</label>
+                </strong>
+            </li>
+            <!--<li><input type="checkbox">Generic simple Tracker</li>-->
+        </ul>
+        <button v-on:click="hideOptions()">Let's go!</button>
+    </template>
 
-            <div class="option">
-                I got hit!
-                <input type="number" v-model="currentHit">
-                <button v-on:click="hit(currentHit)">-{{currentHit}}</button>
+    <template v-if="!show.options"><button v-on:click="showOptions()">Show options</button></template>
+
+    <template v-if="!show.hpTracker && !show.classicMoneyTracker">
+        <p>Nothing to see here, yet. Select some trackers!</p>
+    </template>
+
+    <template v-if="show.hpTracker">
+        <section class="hp">
+            <h1>HP Tracker</h1>
+            <div class="hpmax">
+                <div class="hpcurrent" v-bind:style="{width: HPbarWidth + '%'}"></div>
             </div>
+            {{currentHP}} / {{maxHP}}
 
-            <div class="option">
-                I got healed
-                <input type="number" v-model="currentHeal">
-                <button v-on:click="heal(currentHeal)">+{{currentHeal}}</button>
-            </div>
+            <div class="options">
 
-            <div class="option">
-                Minor Potion (1W8+1)
-                <button v-on:click="drinkPotion"> Drink</button>
-            </div>
-
-        </div>
-    </section>
-
-    <section class="money">
-        <h1>Money Tracker</h1>
-
-        <p class="currentMoney">
-            <span>{{coinsPlatinum}}</span> Platinum |
-            <span>{{coinsGold}}</span> Gold |
-            <span>{{coinsSilver}}</span> Silver |
-            <span>{{coinsCopper}}</span> Copper
-        </p>
-
-        <div class="options">
-
-            <div class="option">
-                <div class="row">
-                    <div>
-                        Platinum
-                        <input type="number" v-model="platinumAmountPlus">
-                    </div>
-                    <div>
-                        Gold
-                        <input type="number" v-model="goldAmountPlus">
-                    </div>
-                    <div>
-                        Silver
-                        <input type="number" v-model="silverAmountPlus">
-                    </div>
-                    <div>
-                        Copper
-                        <input type="number" v-model="copperAmountPlus">
-                    </div>
+                <div class="option">
+                    I got hit!
+                    <input type="number" v-model="currentHit">
+                    <button v-on:click="hit(currentHit)">-{{currentHit}}</button>
                 </div>
-                <button v-on:click="addMoney(platinumAmountPlus, goldAmountPlus, silverAmountPlus, copperAmountPlus)">
-                    +
-                </button>
-            </div>
 
-            <div class="option">
-                <div class="row">
-                    <div>
-                        Platinum
-                        <input type="number" v-model="platinumAmountMinus">
-                    </div>
-                    <div>
-                        Gold
-                        <input type="number" v-model="goldAmountMinus">
-                    </div>
-                    <div>
-                        Silver
-                        <input type="number" v-model="silverAmountMinus">
-                    </div>
-                    <div>
-                        Copper
-                        <input type="number" v-model="copperAmountMinus">
-                    </div>
+                <div class="option">
+                    I got healed
+                    <input type="number" v-model="currentHeal">
+                    <button v-on:click="heal(currentHeal)">+{{currentHeal}}</button>
                 </div>
-                <button v-on:click="removeMoney(platinumAmountMinus, goldAmountMinus, silverAmountMinus, copperAmountMinus)">
-                    -
-                </button>
-            </div>
 
-        </div>
-    </section>
+                <div class="option">
+                    Minor Potion (1W8+1)
+                    <button v-on:click="drinkPotion"> Drink</button>
+                </div>
+
+            </div>
+        </section>
+    </template>
+
+    <template v-if="show.classicMoneyTracker">
+        <section class="money">
+            <h1>Money Tracker</h1>
+
+            <p class="currentMoney">
+                <span>{{coinsPlatinum}}</span> Platinum |
+                <span>{{coinsGold}}</span> Gold |
+                <span>{{coinsSilver}}</span> Silver |
+                <span>{{coinsCopper}}</span> Copper
+            </p>
+
+            <div class="options">
+
+                <div class="option">
+                    <div class="row">
+                        <div>
+                            Platinum
+                            <input type="number" v-model="platinumAmountPlus">
+                        </div>
+                        <div>
+                            Gold
+                            <input type="number" v-model="goldAmountPlus">
+                        </div>
+                        <div>
+                            Silver
+                            <input type="number" v-model="silverAmountPlus">
+                        </div>
+                        <div>
+                            Copper
+                            <input type="number" v-model="copperAmountPlus">
+                        </div>
+                    </div>
+                    <button v-on:click="addMoney(platinumAmountPlus, goldAmountPlus, silverAmountPlus, copperAmountPlus)">
+                        +
+                    </button>
+                </div>
+
+                <div class="option">
+                    <div class="row">
+                        <div>
+                            Platinum
+                            <input type="number" v-model="platinumAmountMinus">
+                        </div>
+                        <div>
+                            Gold
+                            <input type="number" v-model="goldAmountMinus">
+                        </div>
+                        <div>
+                            Silver
+                            <input type="number" v-model="silverAmountMinus">
+                        </div>
+                        <div>
+                            Copper
+                            <input type="number" v-model="copperAmountMinus">
+                        </div>
+                    </div>
+                    <button v-on:click="removeMoney(platinumAmountMinus, goldAmountMinus, silverAmountMinus, copperAmountMinus)">
+                        -
+                    </button>
+                </div>
+
+            </div>
+        </section>
+    </template>
 
 </div>
+<footer>
+    <a href="https://github.com/julia-r/rpg-tracker">Find this on GitHub</a>
+</footer>
 <script src="script.js"></script>
 </body>
 
