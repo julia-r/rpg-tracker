@@ -19,6 +19,7 @@ new Vue({
         coinsSilver: storage.fetch("coinsSilver"),
         coinsGold: storage.fetch("coinsGold"),
         coinsPlatinum: storage.fetch("coinsPlatinum"),
+        coinsTotalCopper: storage.fetch("coinsTotalCopper"),
         copperAmountPlus: "",
         silverAmountPlus: "",
         goldAmountPlus: "",
@@ -66,6 +67,11 @@ new Vue({
             handler: function (coinsPlatinum) {
                 storage.save("coinsPlatinum", coinsPlatinum);
             }
+        },
+        coinsTotalCopper: {
+            handler: function (coinsTotalCopper) {
+                storage.save("coinsTotalCopper", coinsTotalCopper);
+            }
         }
     },
     methods: {
@@ -102,50 +108,70 @@ new Vue({
             }
         },
 
+        getMoneyTotalInCopper: function () {
+            this.coinsTotalCopper =  this.coinsCopper + 10 * this.coinsSilver + 100 * this.coinsGold + 1000 * this.coinsPlatinum;
+        },
+
         /* @TODO: can those two be refactored into one function? */
         addMoney: function (platinumAmountPlus, goldAmountPlus, silverAmountPlus, copperAmountPlus) {
-            if (platinumAmountPlus) {
-                this.coinsPlatinum = parseInt(this.coinsPlatinum) + parseInt(platinumAmountPlus);
-                this.platinumAmountPlus = "";
-            }
+            this.getMoneyTotalInCopper();
 
-            if (goldAmountPlus) {
-                this.coinsGold = parseInt(this.coinsGold) + parseInt(goldAmountPlus);
-                this.goldAmountPlus = "";
+            if (copperAmountPlus) {
+                this.coinsTotalCopper += parseInt(copperAmountPlus);
+                this.copperAmountPlus = "";
             }
 
             if (silverAmountPlus) {
-                this.coinsSilver = parseInt(this.coinsSilver) + parseInt(silverAmountPlus);
+                this.coinsTotalCopper += (parseInt(silverAmountPlus) * 10);
                 this.silverAmountPlus = "";
             }
 
-            if (copperAmountPlus) {
-                this.coinsCopper = parseInt(this.coinsCopper) + parseInt(copperAmountPlus);
-                this.copperAmountPlus = "";
-            }
-        },
-        removeMoney: function (platinumAmountMinus, goldAmountMinus, silverAmountMinus, copperAmountMinus) {
-            if (platinumAmountMinus) {
-                this.coinsPlatinum = parseInt(this.coinsPlatinum) - parseInt(platinumAmountMinus);
-                this.platinumAmountMinus = "";
+            if (goldAmountPlus) {
+                this.coinsTotalCopper += (parseInt(goldAmountPlus) * 100);
+                this.goldAmountPlus = "";
             }
 
-            if (goldAmountMinus) {
-                this.coinsGold = parseInt(this.coinsGold) - parseInt(goldAmountMinus);
-                this.goldAmountMinus = "";
+            if (platinumAmountPlus) {
+                this.coinsTotalCopper += (parseInt(platinumAmountPlus) * 1000);
+                this.platinumAmountPlus = "";
+            }
+
+            this.convertMoneyFromCopper();
+        },
+        removeMoney: function (platinumAmountMinus, goldAmountMinus, silverAmountMinus, copperAmountMinus) {
+
+
+            this.getMoneyTotalInCopper();
+
+            if (copperAmountMinus) {
+                this.coinsTotalCopper -= parseInt(copperAmountMinus);
+                this.copperAmountMinus = "";
             }
 
             if (silverAmountMinus) {
-                this.coinsSilver = parseInt(this.coinsSilver) - parseInt(silverAmountMinus);
+                this.coinsTotalCopper -= (parseInt(silverAmountMinus) * 10);
                 this.silverAmountMinus = "";
             }
 
-            if (copperAmountMinus) {
-                this.coinsCopper = parseInt(this.coinsCopper) - parseInt(copperAmountMinus);
-                this.copperAmountMinus = "";
+            if (goldAmountMinus) {
+                this.coinsTotalCopper -= (parseInt(goldAmountMinus) * 100);
+                this.goldAmountMinus = "";
             }
+
+            if (platinumAmountMinus) {
+                this.coinsTotalCopper -= (parseInt(platinumAmountMinus) * 1000);
+                this.platinumAmountMinus = "";
+            }
+
+            this.convertMoneyFromCopper();
         },
-        convertMoney: function () {
+        convertMoneyFromCopper: function () {
+
+            this.coinsCopper = this.coinsTotalCopper;
+            this.coinsSilver = 0;
+            this.coinsGold = 0;
+            this.coinsPlatinum = 0;
+
             var converted;
             if (this.coinsCopper >= 10) {
                 converted = Math.floor(this.coinsCopper / 10);
